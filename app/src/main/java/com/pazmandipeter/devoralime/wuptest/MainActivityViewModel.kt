@@ -1,6 +1,7 @@
 package com.pazmandipeter.devoralime.wuptest
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,6 +24,9 @@ class MainActivityViewModel @ViewModelInject constructor(
     private val _eventsChannel = Channel<Events>()
     val eventsChannel = _eventsChannel.receiveAsFlow()
 
+    private val _selectedItem = MutableLiveData<Pair<Account, Int>>()
+    val selectedItem: LiveData<Pair<Account, Int>> = _selectedItem
+
     private val listOfAccounts = mutableListOf<Account>()
 
     private var selectedCardIndex = 0
@@ -36,6 +40,7 @@ class MainActivityViewModel @ViewModelInject constructor(
                         result.data?.let { _listOfAccounts ->
                             listOfAccounts.addAll(_listOfAccounts)
                             _eventsChannel.send(Events.ShowResult(_listOfAccounts))
+                            _selectedItem.postValue(Pair(_listOfAccounts[selectedCardIndex], selectedCardIndex))
                         }
                     }
                     is Resource.Loading -> {
@@ -59,6 +64,7 @@ class MainActivityViewModel @ViewModelInject constructor(
             selectedCardIndex--
             viewModelScope.launch {
                 _eventsChannel.send(Events.ScrollLeft(selectedCardIndex, listOfAccounts[selectedCardIndex]))
+                _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex], selectedCardIndex))
             }
         }
     }
@@ -67,6 +73,7 @@ class MainActivityViewModel @ViewModelInject constructor(
             selectedCardIndex++
             viewModelScope.launch {
                 _eventsChannel.send(Events.ScrollRight(selectedCardIndex, listOfAccounts[selectedCardIndex]))
+                _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex], selectedCardIndex))
             }
         }
     }

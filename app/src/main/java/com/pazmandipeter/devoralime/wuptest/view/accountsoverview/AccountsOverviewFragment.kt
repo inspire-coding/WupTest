@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -19,6 +20,7 @@ import com.pazmandipeter.devoralime.wuptest.MainActivityViewModel
 import com.pazmandipeter.devoralime.wuptest.R
 import com.pazmandipeter.devoralime.wuptest.databinding.AccountsOverviewFragmentBinding
 import com.pazmandipeter.devoralime.wuptest.model.Account
+import com.pazmandipeter.devoralime.wuptest.utils.Utilities.calculateProgress
 import com.pazmandipeter.devoralime.wuptest.utils.thousandFormatting
 import com.pazmandipeter.devoralime.wuptest.utils.toDateString
 import com.pazmandipeter.devoralime.wuptest.view.accountdetails.AccountDetailsFragment
@@ -48,6 +50,15 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
         binding.ivArrowRight.setOnClickListener {
             viewModel.onScrollRight()
         }
+
+        binding.btnDetails.setOnClickListener {
+            findNavController().navigate(R.id.action_accountsOverviewFragment_to_accountDetailsFragment)
+        }
+
+        viewModel.selectedItem.observe(viewLifecycleOwner, {
+            updateUi(it.first)
+            binding.viewPager.currentItem = it.second
+        })
     }
 
     private fun setupEvents() {
@@ -61,9 +72,6 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
                     is MainActivityViewModel.Events.ShowResult -> {
                         binding.progressBar.isGone = true
                         setupTabLayout(event.account)
-                        if(event.account.isNotEmpty()) {
-                            updateUi(event.account[0])
-                        }
                     }
                     is MainActivityViewModel.Events.ShowErrorMessage -> {
                         binding.progressBar.isGone = true
@@ -74,11 +82,9 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
                     }
                     is MainActivityViewModel.Events.ScrollLeft -> {
                         binding.viewPager.currentItem = event.currentIndex
-                        updateUi(event.selectedAccount)
                     }
                     is MainActivityViewModel.Events.ScrollRight -> {
                         binding.viewPager.currentItem = event.currentIndex
-                        updateUi(event.selectedAccount)
                     }
                 }
             }
@@ -110,12 +116,6 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
         binding.tvMinPaymentBalance.text = account.minPayment.thousandFormatting()
 
         binding.tvDueDate.text = account.dueDate.toDateString()
-    }
-
-    private fun calculateProgress(availableBalance: Int, currentBalance: Int, reservations: Int): Int {
-        val rate = (availableBalance
-                / (availableBalance.toFloat() + currentBalance.toFloat() + reservations.toFloat())) * 100f
-        return rate.toInt()
     }
 
 

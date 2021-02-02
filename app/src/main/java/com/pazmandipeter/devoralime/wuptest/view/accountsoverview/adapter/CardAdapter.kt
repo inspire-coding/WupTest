@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pazmandipeter.devoralime.wuptest.databinding.LayoutCardItemBinding
 import com.pazmandipeter.devoralime.wuptest.model.Account
-import com.pazmandipeter.devoralime.wuptest.utils.Constants
+import com.pazmandipeter.devoralime.wuptest.utils.Utilities
 
 class CardAdapter : ListAdapter<Account, CardAdapter.CardViewHolder>(
     AsyncDifferConfig.Builder(object : DiffUtil.ItemCallback<Account>() {
@@ -42,7 +42,7 @@ class CardAdapter : ListAdapter<Account, CardAdapter.CardViewHolder>(
         fun bind(cardImageIndex: Int?) {
             cardImageIndex?.let {
                 Glide.with(binding.root)
-                    .load(Constants.listOfCards[cardImageIndex - 1])
+                    .load(Utilities.listOfCards[cardImageIndex - 1])
                     .into(binding.ivCard)
             }
         }

@@ -1,7 +1,7 @@
 package com.pazmandipeter.devoralime.wuptest.di
 
 import com.pazmandipeter.devoralime.wuptest.repository.AccountsEndPoint
-import com.pazmandipeter.devoralime.wuptest.utils.Constants.BASE_URL
+import com.pazmandipeter.devoralime.wuptest.utils.Utilities.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
