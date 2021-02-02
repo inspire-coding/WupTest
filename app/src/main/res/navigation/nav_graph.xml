@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/accountsOverviewFragment">
+
+    <fragment
+        android:id="@+id/accountsOverviewFragment"
+        android:name="com.pazmandipeter.devoralime.wuptest.view.accountsoverview.AccountsOverviewFragment"
+        tools:layout="@layout/accounts_overview_fragment" >
+        <action
+            android:id="@+id/action_accountsOverviewFragment_to_accountDetailsFragment"
+            app:destination="@id/accountDetailsFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_from_right"
+            app:popEnterAnim="@anim/slide_in_from_right"
+            app:popExitAnim="@anim/slide_out_from_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountDetailsFragment"
+        android:name="com.pazmandipeter.devoralime.wuptest.view.accountdetails.AccountDetailsFragment"
+        tools:layout="@layout/account_details_fragment" >
+        <argument
+            android:name="account"
+            app:argType="com.pazmandipeter.devoralime.wuptest.model.Account" />
+    </fragment>
+</navigation>

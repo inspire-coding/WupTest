@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WupTest</string>
+    <string name="cards">Cards</string>
+    <string name="transactions">Transactions</string>
+    <string name="statements">Statements</string>
+    <string name="more">More</string>
+    <string name="premium_card">Premium Card</string>
+    <string name="details">Details</string>
+    <string name="available">Available</string>
+    <string name="current_balance">Current balance</string>
+    <string name="min_payment">Min. payment</string>
+    <string name="due_date">Due date</string>
+</resources>
