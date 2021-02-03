@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:name=".MyApp"
         android:theme="@style/Theme.WupTest">
-        <activity android:name=".MainActivity">
+        <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

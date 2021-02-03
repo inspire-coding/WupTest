@@ -1,4 +1,4 @@
-package com.pazmandipeter.devoralime.wuptest
+package com.pazmandipeter.devoralime.wuptest.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -80,7 +80,12 @@ class MainActivityViewModel @ViewModelInject constructor(
             selectedCardIndex = position
         }
         viewModelScope.launch {
-            _eventsChannel.send(Events.ViewPagerScroll(selectedCardIndex!!, listOfAccounts[selectedCardIndex!!]))
+            _eventsChannel.send(
+                Events.ViewPagerScroll(
+                    selectedCardIndex!!,
+                    listOfAccounts[selectedCardIndex!!]
+                )
+            )
             _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex!!], selectedCardIndex!!))
         }
         fragmentIsDestroyed = false
@@ -89,7 +94,12 @@ class MainActivityViewModel @ViewModelInject constructor(
         if (selectedCardIndex != null && selectedCardIndex!! > 0) {
             selectedCardIndex = selectedCardIndex!! - 1
             viewModelScope.launch {
-                _eventsChannel.send(Events.ViewPagerScroll(selectedCardIndex!!, listOfAccounts[selectedCardIndex!!]))
+                _eventsChannel.send(
+                    Events.ViewPagerScroll(
+                        selectedCardIndex!!,
+                        listOfAccounts[selectedCardIndex!!]
+                    )
+                )
                 _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex!!], selectedCardIndex!!))
             }
         }
@@ -98,7 +108,12 @@ class MainActivityViewModel @ViewModelInject constructor(
         if (selectedCardIndex != null && selectedCardIndex!! < listOfAccounts.size - 1) {
             selectedCardIndex = selectedCardIndex!! + 1
             viewModelScope.launch {
-                _eventsChannel.send(Events.ViewPagerScroll(selectedCardIndex!!, listOfAccounts[selectedCardIndex!!]))
+                _eventsChannel.send(
+                    Events.ViewPagerScroll(
+                        selectedCardIndex!!,
+                        listOfAccounts[selectedCardIndex!!]
+                    )
+                )
                 _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex!!], selectedCardIndex!!))
             }
         }

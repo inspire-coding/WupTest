@@ -1,37 +1,38 @@
 package com.pazmandipeter.devoralime.wuptest.view.accountdetails
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
-import com.pazmandipeter.devoralime.wuptest.MainActivity
-import com.pazmandipeter.devoralime.wuptest.MainActivityViewModel
 import com.pazmandipeter.devoralime.wuptest.R
+import com.pazmandipeter.devoralime.wuptest.controller.IMainActivity
 import com.pazmandipeter.devoralime.wuptest.databinding.AccountDetailsFragmentBinding
 import com.pazmandipeter.devoralime.wuptest.model.Account
 import com.pazmandipeter.devoralime.wuptest.utils.Utilities.calculateProgress
 import com.pazmandipeter.devoralime.wuptest.utils.hideCardNumbers
 import com.pazmandipeter.devoralime.wuptest.utils.thousandFormatting
 import com.pazmandipeter.devoralime.wuptest.utils.toDateString
+import com.pazmandipeter.devoralime.wuptest.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
 
+
     private val viewModel: MainActivityViewModel by activityViewModels()
-    private lateinit var binding : AccountDetailsFragmentBinding
+    private lateinit var binding: AccountDetailsFragmentBinding
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = AccountDetailsFragmentBinding.bind(view)
+
+        setTitle()
 
         setupEvents()
 
@@ -40,20 +41,19 @@ class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
         })
     }
 
-
-
-
-
-
+    private fun setTitle() {
+        (activity as? IMainActivity)?.apply {
+            setTitle(R.string.details, 200L, outDuration = 0, Gravity.START)
+        }
+    }
 
 
     private fun setupEvents() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.eventsChannel.collect { event ->
-                when(event)
-                {
+                when (event) {
                     is MainActivityViewModel.Events.ShowResult -> {
-                        if(event.account.isNotEmpty()) {
+                        if (event.account.isNotEmpty()) {
                             println(event.account[0])
                             updateUi(event.account[0])
                         }
@@ -98,7 +98,7 @@ class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
         binding.adlCardNumber.setBalance(account.cardNumber.hideCardNumbers())
         binding.adlCardHolderName.setBalance(account.cardHolderName)
 
-        if(!account.supplementaryCardNumber.isNullOrEmpty() && !account.supplementaryCardHolderName.isNullOrEmpty()) {
+        if (!account.supplementaryCardNumber.isNullOrEmpty() && !account.supplementaryCardHolderName.isNullOrEmpty()) {
             binding.adlSupplementaryCardNumber.setBalance(account.supplementaryCardNumber.hideCardNumbers())
             binding.adlSupplementaryCardHolderName.setBalance(account.supplementaryCardHolderName!!)
 
@@ -113,7 +113,6 @@ class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
 
         }
     }
-
 
 
 }

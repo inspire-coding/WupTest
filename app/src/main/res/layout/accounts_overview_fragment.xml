@@ -161,7 +161,6 @@
             tools:currency="USD" />
 
 
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_verticalForButtonLeft"
             android:layout_width="wrap_content"

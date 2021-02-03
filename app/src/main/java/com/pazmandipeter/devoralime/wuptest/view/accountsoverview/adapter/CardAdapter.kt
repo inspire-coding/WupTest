@@ -20,8 +20,8 @@ class CardAdapter : ListAdapter<Account, CardAdapter.CardViewHolder>(
         override fun areContentsTheSame(oldItem: Account, newItem: Account): Boolean {
             return oldItem == newItem
         }
-    }).build())
-{
+    }).build()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val binding = LayoutCardItemBinding.inflate(
@@ -31,13 +31,12 @@ class CardAdapter : ListAdapter<Account, CardAdapter.CardViewHolder>(
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-
         val currentItem = getItem(position)
         holder.bind(currentItem.cardImage.toIntOrNull())
-
     }
 
-    inner class CardViewHolder(val binding: LayoutCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CardViewHolder(val binding: LayoutCardItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(cardImageIndex: Int?) {
             cardImageIndex?.let {
@@ -48,4 +47,6 @@ class CardAdapter : ListAdapter<Account, CardAdapter.CardViewHolder>(
         }
 
     }
+
+
 }
