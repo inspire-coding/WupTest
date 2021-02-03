@@ -10,4 +10,15 @@
     <string name="current_balance">Current balance</string>
     <string name="min_payment">Min. payment</string>
     <string name="due_date">Due date</string>
+    <string name="reservations_pending_sum">Reservations/Pending (sum)</string>
+    <string name="balance_overview">Balance overview</string>
+    <string name="balance_carried_over_from_last_statement">Balance carried over from last statement</string>
+    <string name="total_spendings_since_last_statement">Total spendings since last statement</string>
+    <string name="your_latest_re_payment">Your latest re-payment</string>
+    <string name="account_details">Account details</string>
+    <string name="card_account_number">Card account number</string>
+    <string name="main_card">Main card</string>
+    <string name="card_holder_name">Card holder name</string>
+    <string name="card_number">Card number</string>
+    <string name="supplementary_card">Supplementary card</string>
 </resources>

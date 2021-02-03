@@ -1,103 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.accountdetails.AccountDetailsFragment">
+    android:fillViewport="true">
 
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_currentBalanceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_regular"
-        android:text="@string/current_balance"
-        android:textColor="@color/blue"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_currentBalance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/orange"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_currentBalanceText"
-        tools:text="123456" />
-
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_availableText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto_regular"
-        android:text="@string/available"
-        android:textColor="@color/blue"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_availableBalance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/blue"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_availableText"
-        tools:text="123456" />
-
-
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/orange_light_20"
-        app:layout_constraintTop_toTopOf="@id/progressBar_currentBalance"
-        app:layout_constraintBottom_toBottomOf="@id/progressBar_available"
-        app:layout_constraintStart_toStartOf="@id/progressBar_currentBalance"
-        app:layout_constraintEnd_toEndOf="@id/progressBar_available" />
-    <ProgressBar
-        android:id="@+id/progressBar_currentBalance"
-        style="?android:attr/progressBarStyleHorizontal"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:progress="40"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:progressDrawable="@drawable/custom_progressbar_orangetransparent"
-        app:layout_constraintTop_toBottomOf="@id/tv_availableBalance" />
-    <ProgressBar
-        android:id="@+id/progressBar_available"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:rotation="180"
-        android:progress="40"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:progressDrawable="@drawable/custom_progressbar_bluetransparent"
-        app:layout_constraintTop_toBottomOf="@id/tv_availableBalance" />
+        android:layout_height="wrap_content"
+        tools:context=".view.accountdetails.AccountDetailsFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_currentBalanceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/current_balance"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_currentBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/orange"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_currentBalanceText"
+            tools:text="4’455.40" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_availableText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/available"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_availableBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_availableText"
+            tools:text="5’455.60" />
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/orange_light_20"
+            app:layout_constraintBottom_toBottomOf="@id/progressBar_available"
+            app:layout_constraintEnd_toEndOf="@id/progressBar_available"
+            app:layout_constraintStart_toStartOf="@id/progressBar_currentBalance"
+            app:layout_constraintTop_toTopOf="@id/progressBar_currentBalance" />
+        <ProgressBar
+            android:id="@+id/progressBar_currentBalance"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:left="2dp"
+            android:progress="40"
+            android:progressDrawable="@drawable/custom_progressbar_orangetransparent"
+            android:right="2dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_availableBalance" />
+        <ProgressBar
+            android:id="@+id/progressBar_available"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:left="2dp"
+            android:progress="40"
+            android:progressDrawable="@drawable/custom_progressbar_bluetransparent"
+            android:right="2dp"
+            android:rotation="180"
+            app:layout_constraintTop_toBottomOf="@id/tv_availableBalance" />
+
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/orange_light_20"
+            app:layout_constraintBottom_toBottomOf="@id/adl_reservations"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressBar_available" />
+
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_reservations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/reservations_pending_sum"
+            app:layout_constraintTop_toBottomOf="@id/progressBar_available"
+            tools:balance="300.00"
+            tools:currency="USD" />
 
 
 
+        <com.pazmandipeter.devoralime.wuptest.view.custom.SectionHeaderTextView
+            android:id="@+id/tv_balanceOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adl_reservations"
+            app:text="@string/balance_overview" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_balanceCarriedOver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/balance_carried_over_from_last_statement"
+            app:layout_constraintTop_toBottomOf="@id/tv_balanceOverview"
+            tools:balance="300.00"
+            tools:currency="USD" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_totalSpendingsSince"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/total_spendings_since_last_statement"
+            app:layout_constraintTop_toBottomOf="@id/adl_balanceCarriedOver"
+            tools:balance="300.00"
+            tools:currency="USD" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_yourLastPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/your_latest_re_payment"
+            app:layout_constraintTop_toBottomOf="@id/adl_totalSpendingsSince"
+            tools:balance="300.00"
+            tools:currency="USD" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.pazmandipeter.devoralime.wuptest.view.custom.SectionHeaderTextView
+            android:id="@+id/tv_accountDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adl_yourLastPayment"
+            app:text="@string/account_details" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_cardAccountLimit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="Card account limit"
+            app:layout_constraintTop_toBottomOf="@id/tv_accountDetails"
+            tools:balance="300.00"
+            tools:currency="USD" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_cardAccountNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/card_account_number"
+            app:layout_constraintTop_toBottomOf="@id/adl_cardAccountLimit"
+            tools:balance="600264121234" />
+
+
+
+        <com.pazmandipeter.devoralime.wuptest.view.custom.SectionHeaderTextView
+            android:id="@+id/tv_mainCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adl_cardAccountNumber"
+            app:text="@string/main_card" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_cardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/card_number"
+            app:layout_constraintTop_toBottomOf="@id/tv_mainCard"
+            tools:balance="****-****-****-3454" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_cardHolderName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:paddingBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/card_holder_name"
+            app:layout_constraintTop_toBottomOf="@id/adl_cardNumber"
+            tools:balance="Pázmándi Péter" />
+
+
+
+        <com.pazmandipeter.devoralime.wuptest.view.custom.SectionHeaderTextView
+            android:id="@+id/tv_supplementaryCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adl_cardHolderName"
+            app:text="@string/supplementary_card" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_supplementaryCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/card_number"
+            app:layout_constraintTop_toBottomOf="@id/tv_supplementaryCard"
+            tools:balance="****-****-****-3454" />
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_supplementaryCardHolderName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/card_holder_name"
+            app:layout_constraintTop_toBottomOf="@id/adl_supplementaryCardNumber"
+            tools:balance="Pázmándi Péter" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

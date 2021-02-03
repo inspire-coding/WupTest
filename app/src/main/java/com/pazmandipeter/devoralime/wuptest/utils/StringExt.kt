@@ -20,3 +20,17 @@ fun String.toDateString(): String {
     }
     return this
 }
+
+fun String.hideCardNumbers(): String {
+
+    return if (this.length == 19) {
+
+        val lastFourDigits = this.substring(this.length-4, this.length)
+        "****-****-****-$lastFourDigits"
+
+    } else {
+        this
+    }
+
+
+}

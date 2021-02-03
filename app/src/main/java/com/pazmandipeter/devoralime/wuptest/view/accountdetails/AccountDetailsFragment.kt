@@ -17,6 +17,7 @@ import com.pazmandipeter.devoralime.wuptest.R
 import com.pazmandipeter.devoralime.wuptest.databinding.AccountDetailsFragmentBinding
 import com.pazmandipeter.devoralime.wuptest.model.Account
 import com.pazmandipeter.devoralime.wuptest.utils.Utilities.calculateProgress
+import com.pazmandipeter.devoralime.wuptest.utils.hideCardNumbers
 import com.pazmandipeter.devoralime.wuptest.utils.thousandFormatting
 import com.pazmandipeter.devoralime.wuptest.utils.toDateString
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +72,7 @@ class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
     private fun updateUi(account: Account) {
         binding.tvCurrentBalance.text = account.currentBalance.thousandFormatting()
         binding.tvAvailableBalance.text = account.availableBalance.thousandFormatting()
-
+//
         val progressCurrentBalance = calculateProgress(
             account.currentBalance, account.availableBalance, account.reservations
         )
@@ -80,6 +81,40 @@ class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
             account.availableBalance, account.currentBalance, account.reservations
         )
         binding.progressBarAvailable.progress = progressAvailableBalance
+
+        binding.adlBalanceCarriedOver.setCurrency(account.currency)
+        binding.adlBalanceCarriedOver.setBalance(account.balanceCarriedOverFromLastStatement.thousandFormatting())
+
+        binding.adlReservations.setCurrency(account.currency)
+        binding.adlReservations.setBalance(account.reservations.thousandFormatting())
+
+        binding.adlTotalSpendingsSince.setCurrency(account.currency)
+        binding.adlTotalSpendingsSince.setBalance(account.spendingsSinceLastStatement.thousandFormatting())
+
+        binding.adlYourLastPayment.setBalance(account.yourLastRepayment.toDateString())
+
+        binding.adlCardAccountLimit.setCurrency(account.currency)
+        binding.adlCardAccountLimit.setBalance(account.accountDetails.accountLimit.thousandFormatting())
+
+        binding.adlCardAccountNumber.setBalance(account.accountDetails.accountNumber)
+
+        binding.adlCardNumber.setBalance(account.cardNumber.hideCardNumbers())
+        binding.adlCardHolderName.setBalance(account.cardHolderName)
+
+        if(!account.supplementaryCardNumber.isNullOrEmpty() && !account.supplementaryCardHolderName.isNullOrEmpty()) {
+            binding.adlSupplementaryCardNumber.setBalance(account.supplementaryCardNumber.hideCardNumbers())
+            binding.adlSupplementaryCardHolderName.setBalance(account.supplementaryCardHolderName!!)
+
+            binding.adlSupplementaryCardNumber.isVisible = true
+            binding.adlSupplementaryCardNumber.isVisible = true
+            binding.adlSupplementaryCardHolderName.isVisible = true
+
+        } else {
+            binding.tvSupplementaryCard.isGone = true
+            binding.adlSupplementaryCardNumber.isGone = true
+            binding.adlSupplementaryCardHolderName.isGone = true
+
+        }
     }
 
 

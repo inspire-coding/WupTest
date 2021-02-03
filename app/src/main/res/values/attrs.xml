@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="AccountDetailLine">
+        <attr name="descText" format="string" />
+        <attr name="currency" format="string" />
+        <attr name="balance" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SectionHeaderTextView">
+        <attr name="text" format="string" />
+    </declare-styleable>
+
+
+</resources>

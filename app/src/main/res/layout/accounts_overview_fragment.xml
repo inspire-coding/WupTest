@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true" >
+    android:fillViewport="true">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.25" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_currency"
             android:layout_width="wrap_content"
@@ -28,10 +29,10 @@
             android:id="@+id/iv_arrowLeft"
             android:layout_width="40dp"
             android:layout_height="56dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
             android:paddingStart="16dp"
+            android:paddingTop="16dp"
             android:paddingEnd="0dp"
+            android:paddingBottom="16dp"
             android:src="@drawable/ic_arrowleft"
             app:layout_constraintBottom_toBottomOf="@id/viewPager"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +43,10 @@
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
             android:paddingStart="0dp"
+            android:paddingTop="16dp"
             android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
             app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal"
             app:layout_constraintEnd_toStartOf="@id/iv_arrowRight"
             app:layout_constraintStart_toEndOf="@id/iv_arrowLeft"
@@ -108,26 +109,26 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:rotation="180"
-            android:progress="40"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:left="2dp"
-            android:right="2dp"
+            android:progress="40"
             android:progressDrawable="@drawable/custom_progressbar_blueorange"
+            android:right="2dp"
+            android:rotation="180"
             app:layout_constraintTop_toBottomOf="@id/tv_availableBalance" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_zeroBalanceAlert"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:background="@color/white"
             android:src="@drawable/ic_alert"
             android:visibility="gone"
-            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/progressBar_balance"
             app:layout_constraintEnd_toEndOf="@id/progressBar_balance"
             app:layout_constraintTop_toTopOf="@id/progressBar_balance"
-            app:layout_constraintBottom_toBottomOf="@id/progressBar_balance"
             app:tint="@color/red" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -140,9 +141,9 @@
             android:text="@string/current_balance"
             android:textColor="@color/blue"
             android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="@id/tv_currentBalance"
             app:layout_constraintBottom_toBottomOf="@id/tv_currentBalance"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_currentBalance" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_currentBalanceCurrency"
@@ -152,9 +153,9 @@
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/light_gray_2"
             android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="@id/tv_currentBalance"
             app:layout_constraintBottom_toBottomOf="@id/tv_currentBalance"
             app:layout_constraintStart_toStartOf="@id/guideline_currency"
+            app:layout_constraintTop_toTopOf="@id/tv_currentBalance"
             tools:text="USD" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -169,6 +170,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progressBar_balance"
             tools:text="123456" />
+
         <View
             android:id="@+id/separator_currentBalance"
             android:layout_width="match_parent"
@@ -188,9 +190,10 @@
             android:text="@string/min_payment"
             android:textColor="@color/blue"
             android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="@id/tv_minPaymentBalance"
             app:layout_constraintBottom_toBottomOf="@id/tv_minPaymentBalance"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_minPaymentBalance" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_minPaymentCurrency"
             android:layout_width="wrap_content"
@@ -199,10 +202,11 @@
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/light_gray_2"
             android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="@id/tv_minPaymentBalance"
             app:layout_constraintBottom_toBottomOf="@id/tv_minPaymentBalance"
             app:layout_constraintStart_toStartOf="@id/guideline_currency"
+            app:layout_constraintTop_toTopOf="@id/tv_minPaymentBalance"
             tools:text="USD" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_minPaymentBalance"
             android:layout_width="wrap_content"
@@ -215,6 +219,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/separator_currentBalance"
             tools:text="123456" />
+
         <View
             android:id="@+id/separator_minPaymentBalance"
             android:layout_width="match_parent"
@@ -234,9 +239,10 @@
             android:text="@string/due_date"
             android:textColor="@color/blue"
             android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="@id/tv_dueDate"
             app:layout_constraintBottom_toBottomOf="@id/tv_dueDate"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_dueDate" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dueDate"
             android:layout_width="wrap_content"
@@ -249,6 +255,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/separator_minPaymentBalance"
             tools:text="123456" />
+
         <View
             android:id="@+id/separator_dueDateBalance"
             android:layout_width="match_parent"
@@ -264,26 +271,28 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.28" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_verticalForButtonRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.72" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:textColor="@color/light_blue_2"
             android:background="@drawable/shape_whiteback_blueborder_roundedcorners"
-            app:layout_constraintTop_toBottomOf="@id/separator_dueDateBalance"
-            app:layout_constraintStart_toStartOf="@id/guideline_verticalForButtonLeft"
-            app:layout_constraintEnd_toEndOf="@id/guideline_verticalForButtonRight"
+            android:padding="8dp"
+            android:text="@string/details"
+            android:textColor="@color/light_blue_2"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/details" />
+            app:layout_constraintEnd_toEndOf="@id/guideline_verticalForButtonRight"
+            app:layout_constraintStart_toStartOf="@id/guideline_verticalForButtonLeft"
+            app:layout_constraintTop_toBottomOf="@id/separator_dueDateBalance" />
 
 
         <ProgressBar
