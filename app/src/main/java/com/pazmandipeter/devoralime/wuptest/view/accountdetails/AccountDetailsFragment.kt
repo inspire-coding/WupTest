@@ -1,19 +1,16 @@
 package com.pazmandipeter.devoralime.wuptest.view.accountdetails
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
-import com.pazmandipeter.devoralime.wuptest.MainActivity
-import com.pazmandipeter.devoralime.wuptest.MainActivityViewModel
+import com.pazmandipeter.devoralime.wuptest.viewmodel.MainActivityViewModel
 import com.pazmandipeter.devoralime.wuptest.R
+import com.pazmandipeter.devoralime.wuptest.controller.MainActivity
 import com.pazmandipeter.devoralime.wuptest.databinding.AccountDetailsFragmentBinding
 import com.pazmandipeter.devoralime.wuptest.model.Account
 import com.pazmandipeter.devoralime.wuptest.utils.Utilities.calculateProgress
@@ -33,6 +30,7 @@ class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = AccountDetailsFragmentBinding.bind(view)
 
+        setupTitle()
         setupEvents()
 
         viewModel.selectedItem.observe(viewLifecycleOwner, {
@@ -42,9 +40,11 @@ class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
 
 
 
-
-
-
+    private fun setupTitle() {
+        (activity as? MainActivity)?.apply {
+            setTitle(R.string.details, 200L, outDuration = 0, Gravity.START)
+        }
+    }
 
 
     private fun setupEvents() {

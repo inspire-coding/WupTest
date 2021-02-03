@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.MediumTest
 import com.google.common.truth.Truth.assertThat
 import com.pazmandipeter.devoralime.wuptest.view.accountsoverview.AccountsOverviewFragment
+import com.pazmandipeter.devoralime.wuptest.viewmodel.MainActivityViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi

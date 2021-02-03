@@ -26,3 +26,28 @@ fun Toolbar.setTitle(label: CharSequence?, textView: TextView, arguments: Bundle
         textView.text = title
     }
 }
+
+
+fun TextView.setTextAnimation(
+    text: String,
+    duration: Long = 300,
+    outDuration: Long? = null,
+    textGravity: Int? = null,
+    completion: (() -> Unit)? = null
+) {
+    fadeOutAnimation(outDuration ?: duration) {
+        this.text = text
+
+        textGravity?.let {
+            postDelayed({
+                gravity = it
+
+                fadeInAnimation(duration) {
+                    completion?.let {
+                        it()
+                    }
+                }
+            }, duration / 2)
+        }
+    }
+}

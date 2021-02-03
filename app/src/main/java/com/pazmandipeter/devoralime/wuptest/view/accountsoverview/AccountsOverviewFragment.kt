@@ -2,41 +2,35 @@ package com.pazmandipeter.devoralime.wuptest.view.accountsoverview
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.pazmandipeter.devoralime.wuptest.MainActivity
-import com.pazmandipeter.devoralime.wuptest.MainActivityViewModel
+import com.pazmandipeter.devoralime.wuptest.viewmodel.MainActivityViewModel
 import com.pazmandipeter.devoralime.wuptest.R
+import com.pazmandipeter.devoralime.wuptest.controller.MainActivity
 import com.pazmandipeter.devoralime.wuptest.databinding.AccountsOverviewFragmentBinding
 import com.pazmandipeter.devoralime.wuptest.model.Account
+import com.pazmandipeter.devoralime.wuptest.utils.NetworkUtils
+import com.pazmandipeter.devoralime.wuptest.utils.Utilities.UNABLE_TO_RESOLVE_HOST
 import com.pazmandipeter.devoralime.wuptest.utils.Utilities.calculateProgress
 import com.pazmandipeter.devoralime.wuptest.utils.thousandFormatting
 import com.pazmandipeter.devoralime.wuptest.utils.toDateString
-import com.pazmandipeter.devoralime.wuptest.view.accountdetails.AccountDetailsFragment
 import com.pazmandipeter.devoralime.wuptest.view.accountsoverview.adapter.CardAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.accounts_overview_fragment.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.fold
 
 @AndroidEntryPoint
 class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
 
     private val viewModel: MainActivityViewModel by activityViewModels()
-
     private lateinit var binding: AccountsOverviewFragmentBinding
     private lateinit var adapter: CardAdapter
 
@@ -44,18 +38,16 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = AccountsOverviewFragmentBinding.bind(view)
 
+        setupTitle()
+
         setupEvents()
         setupTabLayout()
 
         viewModel.getAccounts()
 
-        binding.ivArrowLeft.setOnClickListener {
-            viewModel.onScrollLeft()
-        }
+        setupArrows()
 
-        binding.ivArrowRight.setOnClickListener {
-            viewModel.onScrollRight()
-        }
+        handleNetworkChanges()
 
         binding.btnDetails.setOnClickListener {
             findNavController().navigate(R.id.action_accountsOverviewFragment_to_accountDetailsFragment)
@@ -65,6 +57,21 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
             updateUi(it.first)
             binding.viewPager.currentItem = it.second
         })
+    }
+
+    private fun setupArrows() {
+        binding.ivArrowLeft.setOnClickListener {
+            viewModel.onScrollLeft()
+        }
+        binding.ivArrowRight.setOnClickListener {
+            viewModel.onScrollRight()
+        }
+    }
+
+    private fun setupTitle() {
+        (activity as? MainActivity)?.apply {
+            setTitle(R.string.premium_card, 200L, null, Gravity.CENTER)
+        }
     }
 
     private fun setupEvents() {
@@ -82,9 +89,12 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
                     is MainActivityViewModel.Events.ShowErrorMessage -> {
                         binding.progressBar.isGone = true
 
-                        Snackbar.make(
-                            binding.root, event.message, Snackbar.LENGTH_LONG
-                        ).show()
+                        // User already notified if offline
+                        if(event.message != UNABLE_TO_RESOLVE_HOST) {
+                            Snackbar.make(
+                                binding.root, event.message, Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     }
                     is MainActivityViewModel.Events.ViewPagerScroll -> {
                         binding.viewPager.currentItem = event.currentIndex
@@ -113,12 +123,24 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
             }
         }
 
+        setCurrentBalance(account)
+
+        setMinPayment(account)
+
+        setDueDate(account)
+    }
+
+    private fun setCurrentBalance(account: Account) {
         binding.adlCurrentBalance.setCurrency(account.currency)
         binding.adlCurrentBalance.setBalance(account.currentBalance.thousandFormatting())
+    }
 
+    private fun setMinPayment(account: Account) {
         binding.adlMinPayment.setCurrency(account.currency)
         binding.adlMinPayment.setBalance(account.minPayment.thousandFormatting())
+    }
 
+    private fun setDueDate(account: Account) {
         binding.adlDueDate.setBalance(account.dueDate.toDateString())
     }
 
@@ -134,5 +156,16 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
             viewModel.initPageChangeCallback()
         }
         binding.viewPager.registerOnPageChangeCallback(viewModel.onPageChangeCallback!!)
+    }
+
+
+    private fun handleNetworkChanges() {
+        context?.let { _context ->
+            NetworkUtils.getNetworkLiveData(context = _context).observe(viewLifecycleOwner, { isConnected ->
+                if (isConnected) {
+                    viewModel.getAccounts()
+                }
+            })
+        }
     }
 }

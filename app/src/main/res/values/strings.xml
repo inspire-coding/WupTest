@@ -21,4 +21,6 @@
     <string name="card_holder_name">Card holder name</string>
     <string name="card_number">Card number</string>
     <string name="supplementary_card">Supplementary card</string>
+    <string name="text_no_connectivity">No Connection</string>
+    <string name="text_connectivity">Back Online</string>
 </resources>

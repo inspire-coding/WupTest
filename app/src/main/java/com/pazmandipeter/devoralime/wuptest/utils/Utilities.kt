@@ -5,6 +5,7 @@ import com.pazmandipeter.devoralime.wuptest.R
 object Utilities {
 
     const val BASE_URL = "https://raw.githubusercontent.com/"
+    const val UNABLE_TO_RESOLVE_HOST = "Unable to resolve host \"raw.githubusercontent.com\": No address associated with hostname"
 
     val listOfCards = listOf(
         R.drawable.cccard,
