@@ -58,10 +58,7 @@ class AccountDetailsFragment : Fragment(R.layout.account_details_fragment) {
                             updateUi(event.account[0])
                         }
                     }
-                    is MainActivityViewModel.Events.ScrollLeft -> {
-                        updateUi(event.selectedAccount)
-                    }
-                    is MainActivityViewModel.Events.ScrollRight -> {
+                    is MainActivityViewModel.Events.ViewPagerScroll -> {
                         updateUi(event.selectedAccount)
                     }
                 }

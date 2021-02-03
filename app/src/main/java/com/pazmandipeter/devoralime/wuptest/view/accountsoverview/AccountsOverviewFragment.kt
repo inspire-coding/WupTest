@@ -12,6 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -26,12 +28,15 @@ import com.pazmandipeter.devoralime.wuptest.utils.toDateString
 import com.pazmandipeter.devoralime.wuptest.view.accountdetails.AccountDetailsFragment
 import com.pazmandipeter.devoralime.wuptest.view.accountsoverview.adapter.CardAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.accounts_overview_fragment.*
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.fold
 
 @AndroidEntryPoint
 class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
 
-    val viewModel: MainActivityViewModel by activityViewModels()
+    private val viewModel: MainActivityViewModel by activityViewModels()
+
     private lateinit var binding: AccountsOverviewFragmentBinding
     private lateinit var adapter: CardAdapter
 
@@ -39,9 +44,10 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = AccountsOverviewFragmentBinding.bind(view)
 
-        viewModel.getAccounts()
-
         setupEvents()
+        setupTabLayout()
+
+        viewModel.getAccounts()
 
         binding.ivArrowLeft.setOnClickListener {
             viewModel.onScrollLeft()
@@ -56,6 +62,7 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
         }
 
         viewModel.selectedItem.observe(viewLifecycleOwner, {
+            println("PageIndex -> ${it.second}")
             updateUi(it.first)
             binding.viewPager.currentItem = it.second
         })
@@ -71,7 +78,7 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
                     }
                     is MainActivityViewModel.Events.ShowResult -> {
                         binding.progressBar.isGone = true
-                        setupTabLayout(event.account)
+                        adapter.submitList(event.account)
                     }
                     is MainActivityViewModel.Events.ShowErrorMessage -> {
                         binding.progressBar.isGone = true
@@ -80,10 +87,8 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
                             binding.root, event.message, Snackbar.LENGTH_LONG
                         ).show()
                     }
-                    is MainActivityViewModel.Events.ScrollLeft -> {
-                        binding.viewPager.currentItem = event.currentIndex
-                    }
-                    is MainActivityViewModel.Events.ScrollRight -> {
+                    is MainActivityViewModel.Events.ViewPagerScroll -> {
+                        println("ScrollLeft -> ${event.currentIndex}")
                         binding.viewPager.currentItem = event.currentIndex
                     }
                 }
@@ -121,12 +126,15 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
 
 
 
-    private fun setupTabLayout(accounts: List<Account>) {
+    private fun setupTabLayout() {
         adapter = CardAdapter()
-        adapter.submitList(accounts)
         binding.viewPager.adapter = adapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
-    }
 
+        if(viewModel.onPageChangeCallback == null) {
+            viewModel.initPageChangeCallback()
+            binding.viewPager.registerOnPageChangeCallback(viewModel.onPageChangeCallback!!)
+        }
+    }
 }

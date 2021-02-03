@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.viewpager2.widget.ViewPager2
 import com.pazmandipeter.devoralime.wuptest.model.Account
 import com.pazmandipeter.devoralime.wuptest.repository.AccountsRepository
 import com.pazmandipeter.devoralime.wuptest.utils.Resource
@@ -29,7 +30,9 @@ class MainActivityViewModel @ViewModelInject constructor(
 
     private val listOfAccounts = mutableListOf<Account>()
 
-    private var selectedCardIndex = 0
+    var selectedCardIndex: Int? = null
+
+    var onPageChangeCallback: ViewPager2.OnPageChangeCallback? = null
 
     fun getAccounts() {
         viewModelScope.launch {
@@ -38,9 +41,12 @@ class MainActivityViewModel @ViewModelInject constructor(
                 {
                     is Resource.Success -> {
                         result.data?.let { _listOfAccounts ->
+                            if(selectedCardIndex == null) {
+                                selectedCardIndex = 0
+                            }
                             listOfAccounts.addAll(_listOfAccounts)
                             _eventsChannel.send(Events.ShowResult(_listOfAccounts))
-                            _selectedItem.postValue(Pair(_listOfAccounts[selectedCardIndex], selectedCardIndex))
+                            _selectedItem.postValue(Pair(_listOfAccounts[selectedCardIndex!!], selectedCardIndex!!))
                         }
                     }
                     is Resource.Loading -> {
@@ -56,32 +62,48 @@ class MainActivityViewModel @ViewModelInject constructor(
         }
     }
 
+    fun initPageChangeCallback() {
+        onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                onScroll(position)
+            }
+        }
+    }
+
 
 
     /** Events **/
+    fun onScroll(position : Int) {
+        println("onScroll -> $position")
+        selectedCardIndex = position
+        viewModelScope.launch {
+            _eventsChannel.send(Events.ViewPagerScroll(selectedCardIndex!!, listOfAccounts[selectedCardIndex!!]))
+            _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex!!], selectedCardIndex!!))
+        }
+    }
     fun onScrollLeft() {
-        if (selectedCardIndex > 0) {
-            selectedCardIndex--
+        if (selectedCardIndex != null && selectedCardIndex!! > 0) {
+            selectedCardIndex = selectedCardIndex!! - 1
             viewModelScope.launch {
-                _eventsChannel.send(Events.ScrollLeft(selectedCardIndex, listOfAccounts[selectedCardIndex]))
-                _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex], selectedCardIndex))
+                _eventsChannel.send(Events.ViewPagerScroll(selectedCardIndex!!, listOfAccounts[selectedCardIndex!!]))
+                _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex!!], selectedCardIndex!!))
             }
         }
     }
     fun onScrollRight() {
-        if (selectedCardIndex < listOfAccounts.size - 1) {
-            selectedCardIndex++
+        if (selectedCardIndex != null && selectedCardIndex!! < listOfAccounts.size - 1) {
+            selectedCardIndex = selectedCardIndex!! + 1
             viewModelScope.launch {
-                _eventsChannel.send(Events.ScrollRight(selectedCardIndex, listOfAccounts[selectedCardIndex]))
-                _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex], selectedCardIndex))
+                _eventsChannel.send(Events.ViewPagerScroll(selectedCardIndex!!, listOfAccounts[selectedCardIndex!!]))
+                _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex!!], selectedCardIndex!!))
             }
         }
     }
 
 
     sealed class Events {
-        data class ScrollLeft(val currentIndex: Int, val selectedAccount: Account): Events()
-        data class ScrollRight(val currentIndex: Int, val selectedAccount: Account): Events()
+        data class ViewPagerScroll(val currentIndex: Int, val selectedAccount: Account): Events()
         object ShowLoading: Events()
         data class ShowResult(val account: List<Account>) : Events()
         data class ShowErrorMessage(val message: String) : Events()
