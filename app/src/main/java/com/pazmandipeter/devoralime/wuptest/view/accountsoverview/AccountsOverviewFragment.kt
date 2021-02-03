@@ -62,7 +62,6 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
         }
 
         viewModel.selectedItem.observe(viewLifecycleOwner, {
-            println("PageIndex -> ${it.second}")
             updateUi(it.first)
             binding.viewPager.currentItem = it.second
         })
@@ -88,7 +87,6 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
                         ).show()
                     }
                     is MainActivityViewModel.Events.ViewPagerScroll -> {
-                        println("ScrollLeft -> ${event.currentIndex}")
                         binding.viewPager.currentItem = event.currentIndex
                     }
                 }
@@ -134,7 +132,7 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
 
         if(viewModel.onPageChangeCallback == null) {
             viewModel.initPageChangeCallback()
-            binding.viewPager.registerOnPageChangeCallback(viewModel.onPageChangeCallback!!)
         }
+        binding.viewPager.registerOnPageChangeCallback(viewModel.onPageChangeCallback!!)
     }
 }

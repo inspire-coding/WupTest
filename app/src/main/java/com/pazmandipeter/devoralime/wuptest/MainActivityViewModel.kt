@@ -33,6 +33,7 @@ class MainActivityViewModel @ViewModelInject constructor(
     var selectedCardIndex: Int? = null
 
     var onPageChangeCallback: ViewPager2.OnPageChangeCallback? = null
+    var fragmentIsDestroyed = false
 
     fun getAccounts() {
         viewModelScope.launch {
@@ -75,12 +76,14 @@ class MainActivityViewModel @ViewModelInject constructor(
 
     /** Events **/
     fun onScroll(position : Int) {
-        println("onScroll -> $position")
-        selectedCardIndex = position
+        if(!fragmentIsDestroyed) {
+            selectedCardIndex = position
+        }
         viewModelScope.launch {
             _eventsChannel.send(Events.ViewPagerScroll(selectedCardIndex!!, listOfAccounts[selectedCardIndex!!]))
             _selectedItem.postValue(Pair(listOfAccounts[selectedCardIndex!!], selectedCardIndex!!))
         }
+        fragmentIsDestroyed = false
     }
     fun onScrollLeft() {
         if (selectedCardIndex != null && selectedCardIndex!! > 0) {

@@ -3,6 +3,7 @@ package com.pazmandipeter.devoralime.wuptest
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -22,6 +23,7 @@ import java.util.regex.Pattern
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+    private val viewModel : MainActivityViewModel by viewModels()
 
     private lateinit var navController: NavController
 
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                         binding.tvTitle,
                         null
                     )
+                    viewModel.fragmentIsDestroyed = true
                 }
                 R.id.accountDetailsFragment -> {
                     binding.tvTitle.gravity = Gravity.LEFT
