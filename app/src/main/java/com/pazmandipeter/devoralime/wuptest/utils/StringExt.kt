@@ -5,20 +5,24 @@ import java.util.*
 
 fun String.toDateString(): String {
 
-    val year = this.substring(0, 4).toIntOrNull()
-    val month = this.substring(5, 7).toIntOrNull()
-    val day = this.substring(8, 10).toIntOrNull()
+    if(this.length == 11) {
+        val year = this.substring(0, 4).toIntOrNull()
+        val month = this.substring(5, 7).toIntOrNull()
+        val day = this.substring(8, 10).toIntOrNull()
 
-    if (year != null && month != null && day != null) {
-        val cal = Calendar.getInstance()
-        cal.clear()
-        cal.set(Calendar.YEAR, year)
-        cal.set(Calendar.MONTH, month-1)
-        cal.set(Calendar.DAY_OF_MONTH, day)
-        val format = SimpleDateFormat("dd.MM.yyy")
-        return format.format(cal.time)
+        if (year != null && month != null && day != null) {
+            val cal = Calendar.getInstance()
+            cal.clear()
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, month-1)
+            cal.set(Calendar.DAY_OF_MONTH, day)
+            val format = SimpleDateFormat("dd.MM.yyy")
+            return format.format(cal.time)
+        }
+        return this
+    } else {
+        return this
     }
-    return this
 }
 
 fun String.hideCardNumbers(): String {

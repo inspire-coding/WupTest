@@ -11,7 +11,7 @@ data class Account(
     var cardHolderName: String = "",
     val cardId: String = "",
     val cardImage: String = "",
-    val cardNumber: String = "",
+    var cardNumber: String = "",
     val currency: String = "",
     val currentBalance: Int = 0,
     val cvv: String = "",

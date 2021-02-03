@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
 
-    private val viewModel: MainActivityViewModel by activityViewModels()
+    val viewModel: MainActivityViewModel by activityViewModels()
     private lateinit var binding: AccountsOverviewFragmentBinding
     private lateinit var adapter: CardAdapter
 

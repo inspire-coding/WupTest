@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class MainActivityViewModel @ViewModelInject constructor(
-    private val accountsRepository: AccountsRepository
+    val accountsRepository: AccountsRepository
 ): ViewModel()  {
 
     // CONST

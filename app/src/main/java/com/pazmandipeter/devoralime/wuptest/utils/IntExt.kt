@@ -6,8 +6,14 @@ import java.util.*
 
 fun Int.thousandFormatting(): String {
 
-    val df = DecimalFormat("#,##0.00")
-    df.decimalFormatSymbols = DecimalFormatSymbols(Locale("en_US"))
-    return df.format(this).replace(",", "’")
+    val unusualSymbols = DecimalFormatSymbols(Locale("en_US"))
+    unusualSymbols.decimalSeparator = '.'
+    unusualSymbols.groupingSeparator = '’'
+
+    val strange = "#,##0.00"
+    val weirdFormatter = DecimalFormat(strange, unusualSymbols)
+    weirdFormatter.groupingSize = 3
+
+    return weirdFormatter.format(this)
 
 }
