@@ -13,8 +13,10 @@
 
     <color name="blue">#004E7B</color>
     <color name="light_blue">#30377AA4</color>
+    <color name="light_blue_progress">#377AA4</color>
     <color name="light_blue_2">#539AC6</color>
     <color name="orange">#F77F00</color>
+    <color name="orangeProgress">#FFAD57</color>
     <color name="orange_light_60">#60F77F00</color>
     <color name="orange_light_20">#20F77F00</color>
     <color name="red">#CE3760</color>
