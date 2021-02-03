@@ -93,7 +93,7 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
 
 
     private fun updateUi(account: Account) {
-        binding.tvAvailableBalance.text = account.availableBalance.thousandFormatting()
+        binding.adlAvailableBalance.setBalance(account.availableBalance.thousandFormatting())
         val progressValue = calculateProgress(
             account.availableBalance, account.currentBalance, account.reservations
         )
@@ -102,20 +102,21 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
             .start()
         context?.let { _context ->
             if(progressValue == 0) {
-                binding.tvAvailableBalance.setTextColor(ContextCompat.getColor(_context, R.color.red))
+                binding.adlAvailableBalance.setBalanceTextColor(R.color.red)
                 binding.ivZeroBalanceAlert.isVisible = true
             } else {
-                binding.tvAvailableBalance.setTextColor(ContextCompat.getColor(_context, R.color.blue))
+                binding.adlAvailableBalance.setBalanceTextColor(R.color.blue)
                 binding.ivZeroBalanceAlert.isGone = true
             }
         }
 
-        binding.tvCurrentBalanceCurrency.text = account.currency
-        binding.tvCurrentBalance.text = account.currentBalance.thousandFormatting()
-        binding.tvMinPaymentCurrency.text = account.currency
-        binding.tvMinPaymentBalance.text = account.minPayment.thousandFormatting()
+        binding.adlCurrentBalance.setCurrency(account.currency)
+        binding.adlCurrentBalance.setBalance(account.currentBalance.thousandFormatting())
 
-        binding.tvDueDate.text = account.dueDate.toDateString()
+        binding.adlMinPayment.setCurrency(account.currency)
+        binding.adlMinPayment.setBalance(account.minPayment.thousandFormatting())
+
+        binding.adlDueDate.setBalance(account.dueDate.toDateString())
     }
 
 

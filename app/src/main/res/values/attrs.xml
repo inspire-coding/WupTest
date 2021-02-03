@@ -6,6 +6,8 @@
         <attr name="descText" format="string" />
         <attr name="currency" format="string" />
         <attr name="balance" format="string" />
+        <attr name="balanceTextColor" format="integer" />
+        <attr name="enableDividerLine" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SectionHeaderTextView">

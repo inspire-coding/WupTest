@@ -78,31 +78,18 @@
             app:tabMode="fixed"
             app:tabRippleColor="@null" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_availableText"
-            android:layout_width="wrap_content"
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_availableBalance"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/available"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_availableBalance"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_availableBalance" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_availableBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/blue"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:descText="@string/available"
+            app:enableDividerLine="false"
             app:layout_constraintTop_toBottomOf="@id/tabLayout"
-            tools:text="123456" />
+            tools:balance="300.00"
+            tools:currency="USD" />
 
         <ProgressBar
             android:id="@+id/progressBar_balance"
@@ -117,7 +104,7 @@
             android:progressDrawable="@drawable/custom_progressbar_blueorange"
             android:right="2dp"
             android:rotation="180"
-            app:layout_constraintTop_toBottomOf="@id/tv_availableBalance" />
+            app:layout_constraintTop_toBottomOf="@id/adl_availableBalance" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_zeroBalanceAlert"
@@ -131,138 +118,48 @@
             app:layout_constraintTop_toTopOf="@id/progressBar_balance"
             app:tint="@color/red" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_currentBalanceText"
-            android:layout_width="wrap_content"
+
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_currentBalance"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/current_balance"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_currentBalance"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            app:descText="@string/current_balance"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_currentBalance" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_currentBalanceCurrency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/light_gray_2"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_currentBalance"
-            app:layout_constraintStart_toStartOf="@id/guideline_currency"
-            app:layout_constraintTop_toTopOf="@id/tv_currentBalance"
-            tools:text="USD" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_currentBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/blue"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progressBar_balance"
-            tools:text="123456" />
+            tools:balance="300.00"
+            tools:currency="USD" />
 
-        <View
-            android:id="@+id/separator_currentBalance"
+
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_minPayment"
             android:layout_width="match_parent"
-            android:layout_height="0.67dp"
-            android:layout_margin="16dp"
-            android:background="@color/light_gray"
-            app:layout_constraintTop_toBottomOf="@id/tv_currentBalance" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_minPaymentText"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/min_payment"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_minPaymentBalance"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_minPaymentBalance" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_minPaymentCurrency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/light_gray_2"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_minPaymentBalance"
-            app:layout_constraintStart_toStartOf="@id/guideline_currency"
-            app:layout_constraintTop_toTopOf="@id/tv_minPaymentBalance"
-            tools:text="USD" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_minPaymentBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/blue"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/separator_currentBalance"
-            tools:text="123456" />
+            app:descText="@string/min_payment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adl_currentBalance"
+            tools:balance="300.00"
+            tools:currency="USD" />
 
-        <View
-            android:id="@+id/separator_minPaymentBalance"
+
+        <com.pazmandipeter.devoralime.wuptest.view.custom.AccountDetailLine
+            android:id="@+id/adl_dueDate"
             android:layout_width="match_parent"
-            android:layout_height="0.67dp"
-            android:layout_margin="16dp"
-            android:background="@color/light_gray"
-            app:layout_constraintTop_toBottomOf="@id/tv_minPaymentBalance" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dueDateText"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/due_date"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_dueDate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_dueDate" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dueDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/blue"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/separator_minPaymentBalance"
-            tools:text="123456" />
+            app:descText="@string/due_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adl_minPayment"
+            tools:balance="300.00"
+            tools:currency="USD" />
 
-        <View
-            android:id="@+id/separator_dueDateBalance"
-            android:layout_width="match_parent"
-            android:layout_height="0.67dp"
-            android:layout_margin="16dp"
-            android:background="@color/light_gray"
-            app:layout_constraintTop_toBottomOf="@id/tv_dueDate" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -292,7 +189,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_verticalForButtonRight"
             app:layout_constraintStart_toStartOf="@id/guideline_verticalForButtonLeft"
-            app:layout_constraintTop_toBottomOf="@id/separator_dueDateBalance" />
+            app:layout_constraintTop_toBottomOf="@id/adl_dueDate" />
 
 
         <ProgressBar
