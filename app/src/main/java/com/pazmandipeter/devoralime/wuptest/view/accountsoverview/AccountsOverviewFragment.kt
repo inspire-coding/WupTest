@@ -95,12 +95,12 @@ class AccountsOverviewFragment : Fragment(R.layout.accounts_overview_fragment) {
     private fun updateUi(account: Account) {
         binding.adlAvailableBalance.setBalance(account.availableBalance.thousandFormatting())
         val progressValue = calculateProgress(
-            account.availableBalance, account.currentBalance, account.reservations
+            account.availableBalance, account.currentBalance
         )
         ObjectAnimator.ofInt(binding.progressBarBalance, "progress", progressValue)
             .setDuration(500)
             .start()
-        context?.let { _context ->
+        context?.let { _ ->
             if(progressValue == 0) {
                 binding.adlAvailableBalance.setBalanceTextColor(R.color.red)
                 binding.ivZeroBalanceAlert.isVisible = true
