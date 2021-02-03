@@ -17,4 +17,10 @@
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Theme.Splash" parent="Theme.WupTest">
+        <item name="android:background">@drawable/background_splash</item>
+    </style>
+
+
 </resources>
